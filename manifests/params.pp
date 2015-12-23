@@ -1,12 +1,16 @@
 # Private
 class activemq::params {
+  $install_from_binary     = false
+  $home                    = '/opt/apache-activemq'
+  $log_path                = '/var/log/activemq'
+  $user                    = 'activemq'
+  $group                   = 'activemq'
   $version                 = 'present'
   $package                 = 'activemq'
   $ensure                  = 'running'
   $instance                = 'activemq'
   $server_config           = 'UNSET'
   $server_config_show_diff = 'UNSET'
-  $service_enable          = true
   $mq_broker_name          = $::fqdn
   $mq_admin_username       = 'admin'
   $mq_admin_password       = 'admin'
@@ -17,7 +21,7 @@ class activemq::params {
   # Debian does not include the webconsole
   case $::osfamily {
     'Debian': {
-      $webconsole = false
+      $webconsole = $install_from_binary
     }
     default: {
       $webconsole = true
